@@ -1,56 +1,53 @@
-# HR Analytics Power BI Dashboard
+# HR Analytics Interactive Power BI Dashboard
 
 ## Executive Summary
-This repository contains a comprehensive **Human Resources (HR) Analytics Dashboard** built using Power BI. The project transforms raw human resource data into actionable strategic insights, enabling leadership, HR managers, and department heads to monitor workforce dynamics, optimize retention strategies, streamline recruitment, and foster diversity and inclusion across the organization.
-
-By leveraging advanced data modeling, DAX (Data Analysis Expressions), and modern data visualization techniques, this dashboard provides a 360-degree view of organizational health and employee lifecycles.
+This repository features a production-ready, interactive **HR Analytics Dashboard** built using Power BI. The project is specifically engineered to translate raw human resource transactions into strategic workforce insights. It provides organizational leadership and HR stakeholders with dynamic views to track headcount health, analyze demographic diversity, pinpoint attrition drivers, and implement data-backed retention strategies.
 
 ---
 
-## Key Features & Analytical Views
+## 📊 Dashboard Architecture & Key Views
 
-### 1. Workforce Overview (Demographics & Structure)
-* **Headcount Tracking:** Real-time visibility into total active employees, contractors, and historical headcount growth trends.
-* **Demographic Breakdown:** Deep dives into workforce distribution by age groups, gender balance, education level, and marital status.
-* **Organizational Hierarchy:** Structural analysis across departments, business units, job roles, and geographic locations.
+The report is divided into highly focused analytical views, each addressing a critical pillar of workforce planning:
 
-### 2. Attrition & Retention Analysis
-* **Attrition Rates:** Calculation of voluntary vs. involuntary turnover rates, segmented by department, tenure, and performance tiers.
-* **Predictive Risk Signals:** Identification of attrition hotspots (e.g., specific roles or managers with higher turnover rates).
-* **Tenure Deep-Dive:** Analysis of employee survival rates and average lifespan within the organization to refine onboarding and retention milestones.
+### 1. Main Overview Panel
+Designed for executive leadership to monitor core high-level metrics at a glance:
+* **Key Performance Indicators (KPIs):** Instant visibility into **Total Employees**, **Active Employees**, and **Inactive Employees**.
+* **Workforce Status Mapping:** A structured breakdown distinguishing between full-time staff and inactive records.
+* **Departmental Dynamics:** Visual distributions tracking how headcount is allocated across core business functions.
 
-### 3. Recruitment & Talent Acquisition Pipeline
-* **Time-to-Hire & Cost-per-Hire:** Efficiency metrics mapping the entire recruitment funnel from application to offer acceptance.
-* **Source Effectiveness:** Evaluation of recruitment channels (e.g., LinkedIn, referrals, agencies) against long-term employee performance and retention.
-* **Pipeline Funnel:** Visualization of applicant drop-off rates across interview stages.
+### 2. Employee Demographics Deep-Dive
+Focuses on understanding the composition, diversity, and equity profiles of the workforce:
+* **Gender Representation:** Clear visual metrics tracking the balance of Male and Female employees across the organization.
+* **Age Group Segmentation:** Distribution of the workforce into generational brackets to assist in succession planning and benefit tailoring.
+* **Marital Status & Diversity Metrics:** Insights into the demographic background of the talent pool to foster an inclusive workplace culture.
 
-### 4. Performance & Compensation Metrics
-* **Performance vs. Compensation:** Correlation matrices mapping performance ratings (9-Box Grid) against salary compa-ratios to ensure fair and competitive compensation.
-* **Promotion Metrics:** Tracking internal mobility rates, average time-to-promotion, and career progression fairness.
-* **Training & Development:** Correlating completed training hours with subsequent performance improvements and promotion readiness.
-
----
-
-## Data Model & Architecture
-The dashboard is constructed on a optimized **Star Schema** to ensure fast query performance and scalable reporting:
-
-* **Fact Table:** `Fact_HR_Changes` / `Fact_Active_Employees` (captures monthly snapshots, hires, terminations, promotions, and performance reviews).
-* **Dimension Tables:**
-    * `Dim_Employee`: Contains slowly changing attributes (SCD Type 2) like role, department, salary, and manager.
-    * `Dim_Date`: A comprehensive calendar table enabling advanced Time-Intelligence calculations (YoY growth, rolling averages, YTD metrics).
-    * `Dim_Recruitment`: Pipeline stages, vacancy details, and hiring sources.
+### 3. Attrition & Retention Analytics
+An investigative view dedicated to identifying why talent leaves and where the highest turnover risks reside:
+* **Turnover Trends:** Longitudinal tracking of inactive employees to identify seasonal or annual attrition patterns.
+* **Attrition by Demographics:** Cross-referencing departure rates against age groups, marital status, and gender to uncover underlying systemic patterns.
+* **Departmental Attrition Heatmaps:** Pinpointing specific business units or job roles experiencing higher-than-average churn rates to optimize management practices.
 
 ---
 
-## Advanced DAX Metrics Calculated
-The report utilizes robust DAX formulas to power dynamic KPIs:
-* **Active Headcount:** ```dax
-  Active Headcount = 
-  CALCULATE(
-      COUNT(Dim_Employee[EmployeeID]),
-      FILTER(
-          Dim_Employee,
-          Dim_Employee[HireDate] <= MAX(Dim_Date[Date]) &&
-          (ISBLANK(Dim_Employee[TerminationDate]) || Dim_Employee[TerminationDate] > MAX(Dim_Date[Date]))
-      )
-  )
+## 🛠️ Technical Stack & Implementation Details
+
+* **Business Intelligence Tool:** Microsoft Power BI Desktop
+* **Data Engineering & Modeling:** Cleaned and transformed via Power Query, structured using an optimized **Star Schema** layout to maximize query speeds and report responsiveness.
+* **Analytical Calculations (DAX):** Leverages advanced Data Analysis Expressions for dynamic time-intelligence tracking, active headcount filtering, and multi-conditional attrition rate slicing.
+
+---
+
+## 🚀 Getting Started & Setup
+
+### Prerequisites
+* Microsoft Power BI Desktop (Latest version recommended).
+
+### How to Run and Refresh the Dashboard
+1. Clone or download this repository to your local machine.
+2. Open the `HR_Report.pbix` file using Power BI Desktop.
+3. **To connect your own data:** * Navigate to the **Home** tab $\rightarrow$ **Transform Data** $\rightarrow$ **Data Source Settings**.
+   * Update the source pathways to point to your organization's local CSV, Excel, or SQL Server HR tables.
+   * Click **Refresh** on the home ribbon to re-populate the charts with your custom workforce data.
+
+---
+*Engineered to drive data-informed talent strategy, optimize operational efficiency, and mitigate workforce attrition.*
